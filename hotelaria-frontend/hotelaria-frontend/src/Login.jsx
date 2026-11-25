@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Hotel, Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { api, mensagemErro } from "./api";
 import "./login.css";
 
 export default function Login({ onLogin }) {
@@ -18,32 +19,41 @@ export default function Login({ onLogin }) {
 
         try {
 
-            const resposta = await fetch("/api/auth/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    email,
-                    senha
-                })
+            const resposta = await api.post("/auth/login", {
+                email: email.trim().toLowerCase(),
+                senha: senha
             });
 
-            if (resposta.status === 401) {
-                throw new Error("E-mail ou senha inválidos.");
+            const usuario = resposta.data;
+
+            if (!usuario?.token) {
+                throw new Error(
+                    "O backend não retornou um token válido."
+                );
             }
 
-            if (!resposta.ok) {
-                throw new Error("Não foi possível realizar o login.");
-            }
-
-            const usuario = await resposta.json();
+            console.log("Login realizado com sucesso.");
 
             onLogin(usuario);
 
         } catch (error) {
 
-            setErro(error.message);
+            const status = error.response?.status;
+
+            console.error("Status do login:", status);
+
+            if (status === 401) {
+
+                setErro("E-mail ou senha inválidos.");
+
+            } else {
+
+                setErro(
+                    status
+                        ? `HTTP ${status}: ${mensagemErro(error)}`
+                        : mensagemErro(error)
+                );
+            }
 
         } finally {
 
@@ -95,6 +105,7 @@ export default function Login({ onLogin }) {
                             placeholder="Seu e-mail"
                             value={email}
                             onChange={e => setEmail(e.target.value)}
+                            autoComplete="username"
                             required
                         />
 
@@ -111,6 +122,7 @@ export default function Login({ onLogin }) {
                             placeholder="Sua senha"
                             value={senha}
                             onChange={e => setSenha(e.target.value)}
+                            autoComplete="current-password"
                             required
                         />
 
@@ -134,8 +146,7 @@ export default function Login({ onLogin }) {
                     >
                         {carregando
                             ? "Entrando..."
-                            : "Entrar no sistema"
-                        }
+                            : "Entrar no sistema"}
                     </button>
 
                     <span className="login-aviso">

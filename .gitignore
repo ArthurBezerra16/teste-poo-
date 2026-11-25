@@ -1,6 +1,4 @@
-# ==============================
 # REACT / NODE.JS
-# ==============================
 node_modules/
 dist/
 build/
@@ -8,29 +6,22 @@ build/
 coverage/
 .npm/
 
-# ==============================
 # JAVA / SPRING BOOT / MAVEN
-# ==============================
 target/
 *.class
 *.jar
 *.war
 *.ear
-*.log
 
 # Preservar Maven Wrapper
 !**/.mvn/wrapper/maven-wrapper.jar
 
-# ==============================
 # VARIÁVEIS DE AMBIENTE
-# ==============================
 .env
 .env.*
 !.env.example
 
-# ==============================
 # BANCO DE DADOS E CREDENCIAIS
-# ==============================
 application-local.properties
 application-local.yml
 application-local.yaml
@@ -43,34 +34,25 @@ secrets/
 *.p12
 *.jks
 
-# ==============================
 # BANCO DE DADOS H2
-# ==============================
 *.db
 *.mv.db
 *.trace.db
 
-# ==============================
-# LOGS
-# ==============================
-logs/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# ==============================
-# EDITORES E IDEs
-# ==============================
+# IDE
 .vscode/
 .idea/
 .settings/
 .classpath
 .project
-*.iml
 
-# ==============================
+# LOGS
+*.log
+logs/
+
 # SISTEMA OPERACIONAL
-# ==============================
 .DS_Store
 Thumbs.db
-Desktop.ini
+
+# DEPLOY
+.vercel/

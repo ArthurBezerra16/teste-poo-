@@ -42,12 +42,7 @@
 
     <dependencies>
 
-        <!-- BANCO DE DADOS H2 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-h2console</artifactId>
-        </dependency>
-
+            
         <!-- SPRING DATA JPA -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -102,15 +97,14 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-
-        <!-- H2 DATABASE -->
+        <!-- BANCO DE DADOS POSTGRESQL - SUPABASE -->
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
 
-        <!-- LOMBOK -->
+       <!-- LOMBOK -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

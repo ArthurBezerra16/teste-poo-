@@ -9,7 +9,8 @@ api.interceptors.request.use(config => {
 
     const token = sessionStorage.getItem('hotelaria_token');
 
-    if (token) {
+    if (token && config.url !== '/auth/login') {
+
         config.headers.Authorization = `Bearer ${token}`;
     }
 
@@ -24,6 +25,7 @@ api.interceptors.response.use(
             erro.response?.status === 401 &&
             erro.config?.url !== '/auth/login'
         ) {
+
             sessionStorage.removeItem('hotelaria_token');
             sessionStorage.removeItem('hotelaria_usuario');
 
